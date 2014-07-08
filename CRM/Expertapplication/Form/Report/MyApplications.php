@@ -583,7 +583,8 @@ class CRM_Expertapplication_Form_Report_MyApplications extends CRM_Report_Form {
         if ($value = $row['civicrm_case_subject']) {
           $caseId = $row['civicrm_case_id'];
           $contactId = $row['civicrm_contact_id'];
-          $rows[$rowNum]['civicrm_case_subject'] = "<a href= 'javascript:viewCase( $caseId,$contactId );'>$value</a>";
+          $url = CRM_Utils_System::url('civicrm/contact/view/case', 'action=view&reset=1&cid='.$contactId."&id=".$caseId);
+          $rows[$rowNum]['civicrm_case_subject_link'] = $url;
           $rows[$rowNum]['civicrm_case_subject_hover'] = ts('View Details of Case.');
 
           $entryFound = TRUE;
