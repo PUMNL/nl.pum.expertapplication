@@ -115,22 +115,13 @@ class CRM_Expertapplication_Form_Report_MyInterviews extends CRM_Report_Form {
             'default' => TRUE,
             'type' => CRM_Utils_Type::T_STRING,
           ),
-          'duration' =>
-          array(
-            'title' => 'Duration',
-            'statistics' =>
-            array(
-              'sum' => ts('Total Duration'),
-            ),
+          'activity_subject' =>
+          array('title' => ts('Subject'),
+            'default' => TRUE,
           ),
-          'id' =>
-          array(
-            'title' => 'Total Activities',
+          'activity_date_time' =>
+          array('title' => ts('Activity Date'),
             'required' => TRUE,
-            'statistics' =>
-            array(
-              'count' => ts('Activity Count'),
-            ),
           ),
         ),
         'filters' =>
@@ -151,17 +142,6 @@ class CRM_Expertapplication_Form_Report_MyInterviews extends CRM_Report_Form {
           array('title' => ts('Priority'),
             'operatorType' => CRM_Report_Form::OP_MULTISELECT,
             'options' => CRM_Core_PseudoConstant::get('CRM_Activity_DAO_Activity', 'priority_id'),
-          ),
-        ),
-        'group_bys' =>
-        array(
-          'activity_date_time' =>
-          array('title' => ts('Activity Date'),
-            'frequency' => TRUE,
-          ),
-          'activity_type_id' =>
-          array('title' => ts('Activity Type'),
-            'default' => TRUE,
           ),
         ),
         'order_bys' =>
