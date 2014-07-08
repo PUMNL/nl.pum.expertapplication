@@ -3,6 +3,22 @@
 require_once 'expertapplication.civix.php';
 
 /**
+ * Create a drupal user account as soon as a candidate expert has to fill in
+ * his/her PUM CV
+ * 
+ */
+function expertapplication_civicrm_post( $op, $objectName, $objectId, &$objectRef ) {
+  /*if ($objectName == 'Activity') {
+    //check if the activity is a Fill in PUM CV expert activity
+    $activity_option_group_id = civicrm_api3('OptionGroup', 'getvalue', array('return' => 'id', 'name' => 'activity_type'));
+    $fillInPUMCv_ActivityTypeId = civicrm_api3('OptionValue', 'getvalue', array('return' => 'value', 'name' => 'Fill Out PUM CV', 'option_group_id' => $activity_option_group_id));
+    if ($objectRef->activity_type_id = $fillInPUMCv_ActivityTypeId) {
+      //create drupal user account
+    }
+  }*/
+}
+
+/**
  * Implementation of hook_civicrm_config
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_config
