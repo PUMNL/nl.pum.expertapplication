@@ -358,7 +358,7 @@ class CRM_Expertapplication_Form_Report_MyInterviews extends CRM_Report_Form {
     
     $session   = CRM_Core_Session::singleton();
     $userID    = $session->get('userID');
-    $clauses[] = "`target_activity`.`contact_id`  = {$userID}";
+    $clauses[] = "`assignment_activity`.`contact_id`  = {$userID}";
 
     if (empty($clauses)) {
       $this->_where .= " ";
