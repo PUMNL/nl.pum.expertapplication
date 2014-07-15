@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<menu>
+  <item>
+    <path>civicrm/admin/expertapplication</path>
+    <page_callback>CRM_Expertapplication_Form_ExpertApplicationAdmin</page_callback>
+    <title>ExpertApplicationAdmin</title>
+    <access_arguments>administer CiviCRM</access_arguments>
+  </item>
+</menu>
