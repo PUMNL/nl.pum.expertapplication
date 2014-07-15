@@ -78,9 +78,9 @@ class CRM_Expertapplication_Form_ExpertApplicationAdmin extends CRM_Core_Form {
   
   function getActivityTypes() {
     $gid = civicrm_api3('OptionGroup', 'getvalue', array('return' => 'id', 'name' => 'activity_type'));
-    $values = civicrm_api3('OptionValue', 'get', array('option_group_id' => $gid));
-    foreach($values['values'] as $option) {
-      $options[$option['value']] = $option['label'];
+    $activityTypes = CRM_Core_OptionGroup::values('activity_type');
+    foreach($activityTypes as $value => $option) {
+      $options[$value] = $option;
     }
     return $options;
   }
