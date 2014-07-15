@@ -82,6 +82,7 @@ class CRM_Expertapplication_Form_ExpertApplicationAdmin extends CRM_Core_Form {
     foreach($activityTypes as $value => $option) {
       $options[$value] = $option;
     }
+    asort($options);
     return $options;
   }
 
