@@ -11,7 +11,7 @@ function expertapplication_civicrm_post( $op, $objectName, $objectId, &$objectRe
   if ($objectName == 'Activity' && ($op =='edit' || $op == 'create')) {
     //check if the activity is a valid activity and the activity is scheduled
     $config = CRM_Expertapplication_Config::singleton();
-    if (in_array($objectRef->activity_type_id, $config->getActivityTypes()) && $objectRef->status_id == 1) {
+    if (in_array($objectRef->activity_type_id, $config->getActivityTypes())) {
       //create drupal user account
       $user_account = new CRM_Expertapplication_UserRole($objectId);
       $user_account->process();
