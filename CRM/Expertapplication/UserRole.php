@@ -5,7 +5,42 @@ class CRM_Expertapplication_UserRole {
   protected $contacts_ids;
   
   public function __construct($activity_id) {
-    $this->contact_ids = CRM_Activity_BAO_ActivityAssignment::retrieveAssigneeIdsByActivityId($activity_id);
+    $this->contact_ids = $this->retrieveTargetIdsByActivityId($activity_id);
+  }
+  
+  /**
+   * Retrieve assignee_id by activity_id
+   *
+   * @param int    $id  ID of the activity
+   *
+   * @return void
+   *
+   * @access public
+   *
+   */
+  protected function retrieveTargetIdsByActivityId($activity_id) {
+    $assigneeArray = array();
+    if (!CRM_Utils_Rule::positiveInteger($activity_id)) {
+      return $assigneeArray;
+    }
+
+    $activityContacts = CRM_Core_OptionGroup::values('activity_contacts', FALSE, FALSE, FALSE, NULL, 'name');
+    $assigneeID = CRM_Utils_Array::key('Activity Targets', $activityContacts);
+
+    $sql = "
+SELECT     contact_id
+FROM       civicrm_activity_contact
+INNER JOIN civicrm_contact ON contact_id = civicrm_contact.id
+WHERE      activity_id = %1
+AND        record_type_id = $assigneeID
+AND        civicrm_contact.is_deleted = 0
+";
+    $assignment = CRM_Core_DAO::executeQuery($sql, array(1 => array($activity_id, 'Integer')));
+    while ($assignment->fetch()) {
+      $assigneeArray[] = $assignment->contact_id;
+    }
+
+    return $assigneeArray;
   }
   
   public function process() {
