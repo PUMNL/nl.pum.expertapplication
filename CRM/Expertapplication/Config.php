@@ -19,6 +19,8 @@ class CRM_Expertapplication_Config {
   private $expertActiveOption = null;
   private $expertContactType = null;
   
+  private $expert_application_case_type;
+  
   private function __construct() {
     $this->activity_types = unserialize(CRM_Core_BAO_Setting::getItem('nl.pum.expertapplication', 'new_expert_role_activities'));
     if (!is_array($this->activity_types)) {
@@ -35,6 +37,9 @@ class CRM_Expertapplication_Config {
      */
     $this->setExpertCustomData();
     $this->setExpertContactType();
+    
+    $case_type_id = civicrm_api3('OptionGroup', 'getvalue', array('name' => 'case_type', 'return' => 'id'));
+    $this->expert_application_case_type = civicrm_api3('OptionValue', 'getsingle', array('name' => 'Expertapplication', 'option_group_id' => $case_type_id));
   }
   
   public static function singleton() {
@@ -58,6 +63,10 @@ class CRM_Expertapplication_Config {
       $roles = user_roles(true); 
     }
     return $roles;
+  }
+  
+  public function getExpertApplicationCaseType($key='id') {
+    return $this->expert_application_case_type[$key];
   }
   
   public function getExpertContactType() {
