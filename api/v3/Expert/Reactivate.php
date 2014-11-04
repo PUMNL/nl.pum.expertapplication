@@ -21,7 +21,8 @@ function civicrm_api3_expert_reactivate($params) {
     'contact_sub_type' => $expertApplicationConfig->getExpertContactType(),
     'is_deleted' => 0,
     $expertStatusField => $expertApplicationConfig->getExpertTempInactOption(),
-    'return' => $expertStatusEndDateField
+    'return' => $expertStatusEndDateField,
+    'options' => array('limit' => 999999)
   );
   try {
     $contacts = civicrm_api3('Contact', 'Get', $params);
