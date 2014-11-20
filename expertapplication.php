@@ -19,6 +19,10 @@ function expertapplication_civicrm_post( $op, $objectName, $objectId, &$objectRe
   }
 }
 
+function expertapplication_civicrm_custom($op, $groupID, $entityID, &$params) {
+  CRM_Expertapplication_Hooks_CustomCaseStatusReject::custom($op, $groupID, $entityID, $params);
+}
+
 function expertapplication_civicrm_buildForm($formName, &$form) {
   if ($formName == 'CRM_Case_Form_CaseView' || $formName == 'CRM_Case_Form_EditClient') {
    //deny access to the expert application case when the logged in user is the client of the case
