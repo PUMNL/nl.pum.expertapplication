@@ -53,6 +53,11 @@ AND        civicrm_contact.is_deleted = 0
       //check if this user exist in drupal
       $drupal_uid = $this->createDrupalUser($cid);
       if ($drupal_uid) {
+        //activate user
+        $user = user_load($drupal_uid);
+        $user->status = 1; //activate user
+        user_save($user);  
+          
         //assign role to drupal user
         $this->assignRoleToUser($drupal_uid, $config->getDrupalRole());
         //set the message
