@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+
+<CustomData>
+  <CustomGroups>
+    <CustomGroup>
+      <name>expert_data</name>
+      <title>Expert Data</title>
+      <extends>Individual</extends>
+      <extends_entity_column_value_option_group>contact_type</extends_entity_column_value_option_group>
+      <extends_entity_column_value>Expert</extends_entity_column_value>
+      <style>Tab</style>
+      <collapse_display>0</collapse_display>
+      <help_pre>&lt;p&gt;Data specific to the role PUM Expert&lt;/p&gt;</help_pre>
+      <help_post></help_post>
+      <weight>29</weight>
+      <is_active>1</is_active>
+      <table_name>civicrm_value_expert_data_20</table_name>
+      <is_multiple>0</is_multiple>
+      <collapse_adv_display>0</collapse_adv_display>
+      <is_reserved>0</is_reserved>
+    </CustomGroup>
+  </CustomGroups>
+  <CustomFields>
+    <CustomField>
+      <name>Agreement_PUM_privacy_scheme</name>
+      <label>Agreement : PUM privacy scheme</label>
+      <data_type>String</data_type>
+      <html_type>Select</html_type>
+      <is_required>0</is_required>
+      <is_searchable>0</is_searchable>
+      <is_search_range>0</is_search_range>
+      <weight>569</weight>
+      <is_active>1</is_active>
+      <is_view>0</is_view>
+      <text_length>255</text_length>
+      <note_columns>60</note_columns>
+      <note_rows>4</note_rows>
+      <column_name>agreement_pum_privacy_scheme_450</column_name>
+      <option_group_name>agreement_pum_privacy_scheme_20151112115942</option_group_name>
+      <custom_group_name>expert_data</custom_group_name>
+    </CustomField>
+  </CustomFields>
+  <OptionGroups>
+    <OptionGroup>
+      <name>agreement_pum_privacy_scheme_20151112115942</name>
+      <title>Agreement : PUM privacy scheme</title>
+      <is_reserved>1</is_reserved>
+      <is_active>1</is_active>
+    </OptionGroup>
+  </OptionGroups>
+  <OptionValues>
+    <OptionValue>
+      <label>Yes</label>
+      <value>Yes</value>
+      <name>Yes</name>
+      <is_default>0</is_default>
+      <weight>1</weight>
+      <is_optgroup>0</is_optgroup>
+      <is_reserved>0</is_reserved>
+      <is_active>1</is_active>
+      <option_group_name>agreement_pum_privacy_scheme_20151112115942</option_group_name>
+    </OptionValue>
+  </OptionValues>
+</CustomData>
