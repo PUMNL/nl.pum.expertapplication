@@ -29,10 +29,13 @@ function civicrm_api3_expert_reactivate($params) {
   } catch (CiviCRM_API3_Exception $ex) {
     throw new Exception('API error when retrieving contacts with API Contact Get : '.$ex->getMessage());
   }
+  
   foreach ($contacts['values'] as $tempInactiveExpert) {
-    $endDate = date('Ymd', strtotime($tempInactiveExpert[$expertStatusEndDateField]));
-    if ($endDate <= date('Ymd')) {
-      _reactivateExpert($tempInactiveExpert['contact_id']);
+    if (!empty($tempInactiveExpert[$expertStatusEndDateField])) {
+      $endDate = date('Ymd', strtotime($tempInactiveExpert[$expertStatusEndDateField]));
+      if ($endDate <= date('Ymd')) {
+        _reactivateExpert($tempInactiveExpert['contact_id']);
+      }
     }
   }  
   return civicrm_api3_create_success(array(), array(), 'Expert', 'Reactivate');
