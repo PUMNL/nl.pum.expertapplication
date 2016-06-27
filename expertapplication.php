@@ -1,7 +1,21 @@
 <?php
 
 require_once 'expertapplication.civix.php';
-
+/**
+ * Implements hook_civicrm_apiWrappers()
+ *
+ * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_apiWrappers
+ */
+function expertapplication_civicrm_apiWrappers(&$wrappers, $apiRequest) {
+  $apiEntity = strtolower($apiRequest['entity']);
+  $apiAction = strtolower($apiRequest['action']);
+  if ($apiEntity == 'case') {
+    if ($apiAction == 'create') {
+      // process apiRequest 
+      $wrappers[] = new CRM_Expertapplication_CaseApiWrapper();
+    }
+  }
+}
 /**
  * Create a drupal user account as soon as a candidate expert has to fill in
  * his/her PUM CV
