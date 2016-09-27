@@ -160,7 +160,11 @@ class CRM_Expertapplication_Config {
       throw new Exception("Could not find option values in option group ".$optionGroupId.
         ", error from API OptionValue Get : ".$ex->getMessage());
     }
+
     foreach($optionValues['values'] as $optionValue) {
+      if (!isset($optionValue['name'])) {
+        continue;
+      }
       switch ($optionValue['name']) {
         case 'Active':
           $this->expertActiveOption = $optionValue['value'];
