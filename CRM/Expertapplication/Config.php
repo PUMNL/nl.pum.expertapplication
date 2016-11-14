@@ -4,10 +4,6 @@ class CRM_Expertapplication_Config {
   
   private static $_singleton;
   
-  private $activity_types;
-  
-  private $drupal_role = false;
-  
   private $expertStatusColumn = null;
   private $expertStatusCustomFieldId = null;
   private $expertStatusEndDateColumn = null;
@@ -22,16 +18,6 @@ class CRM_Expertapplication_Config {
   private $expert_application_case_type;
   
   private function __construct() {
-    $this->activity_types = unserialize(CRM_Core_BAO_Setting::getItem('nl.pum.expertapplication', 'new_expert_role_activities'));
-    if (!is_array($this->activity_types)) {
-      $this->activity_types = array();
-    }
-    
-    $rid = CRM_Core_BAO_Setting::getItem('nl.pum.expertapplication', 'new_expert_role_id');
-    $roles = $this->getDrupalRoles();
-    if (isset($roles[$rid])) {
-      $this->drupal_role = $rid;
-    }
     /*
      * config options required for api Expert Reactivate
      */
@@ -47,22 +33,6 @@ class CRM_Expertapplication_Config {
       self::$_singleton = new CRM_Expertapplication_Config();
     }
     return self::$_singleton;
-  }
-  
-  public function getActivityTypes() {
-    return $this->activity_types;
-  }
-  
-  public function getDrupalRole() {
-    return $this->drupal_role;
-  }
-  
-  public function getDrupalRoles() {
-    $roles = array();
-    if (function_exists('user_roles')) {
-      $roles = user_roles(true); 
-    }
-    return $roles;
   }
   
   public function getExpertApplicationCaseType($key='id') {

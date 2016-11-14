@@ -16,42 +16,12 @@ function expertapplication_civicrm_apiWrappers(&$wrappers, $apiRequest) {
     }
   }
 }
-/**
- * Create a drupal user account as soon as a candidate expert has to fill in
- * his/her PUM CV
- * 
- */
-function expertapplication_civicrm_post( $op, $objectName, $objectId, &$objectRef ) {
-  if ($objectName == 'Activity' && ($op =='edit' || $op == 'create')) {
-    //check if the activity is a valid activity and the activity is scheduled
-    $config = CRM_Expertapplication_Config::singleton();
-    if (in_array($objectRef->activity_type_id, $config->getActivityTypes())) {
-      //create drupal user account
-      $user_account = new CRM_Expertapplication_UserRole($objectId);
-      $user_account->process();
-    }
-  }
-}
 
 function expertapplication_civicrm_buildForm($formName, &$form) {
   if ($formName == 'CRM_Case_Form_CaseView' || $formName == 'CRM_Case_Form_EditClient') {
    //deny access to the expert application case when the logged in user is the client of the case
     CRM_Expertapplication_DenyAccessExpertApplication::buildForm($formName, $form);
   }
-}
-
-/**
- * Implementation of hook_civicrm_navigationMenu
- *
- * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_navigationMenu
- */
-function expertapplication_civicrm_navigationMenu( &$params ) {  
-  $item = array (
-    "name"=> ts('Expert application settings'),
-    "url"=> "civicrm/admin/expertapplication",
-    "permission" => "administer CiviCRM",
-  );
-  _expertapplication_civix_insert_navigation_menu($params, "Administer/System Settings", $item);
 }
 
 /**
