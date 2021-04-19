@@ -51,4 +51,41 @@ class CRM_Expertapplication_Upgrader extends CRM_Expertapplication_Upgrader_Base
 
     return true;
   }
+
+  /**
+   * Upgrade 1005 - Add expert status 'Onboarding'
+   */
+  public function upgrade_1005() {
+    try {
+      $params_og_expertstatus = array(
+        'version' => 3,
+        'sequential' => 1,
+        'title' => 'Expert status',
+      );
+      $result_og_expertstatus = civicrm_api('OptionGroup', 'getsingle', $params_og_expertstatus);
+
+      if(!empty($result_og_expertstatus['id'])){
+        $params = array(
+          'version' => 3,
+          'sequential' => 1,
+          'option_group_id' => $result_og_expertstatus['id'],
+          'name' => 'Onboarding',
+          'label' => 'Onboarding',
+          'value' => 'Onboarding',
+          'weight' => 40,
+          'description' => '',
+          'is_reserved' => 1,
+        );
+        $result = civicrm_api('OptionValue', 'create', $params);
+      }
+    } catch(Exception $e) {
+      return FALSE;
+    }
+
+    if($result['count'] != 1 || $result['is_error'] == 1){
+      return FALSE;
+    }
+
+    return TRUE;
+  }
 }

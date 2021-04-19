@@ -11,7 +11,7 @@ function expertapplication_civicrm_apiWrappers(&$wrappers, $apiRequest) {
   $apiAction = strtolower($apiRequest['action']);
   if ($apiEntity == 'case') {
     if ($apiAction == 'create') {
-      // process apiRequest 
+      // process apiRequest
       $wrappers[] = new CRM_Expertapplication_CaseApiWrapper();
     }
   }
@@ -21,6 +21,13 @@ function expertapplication_civicrm_buildForm($formName, &$form) {
   if ($formName == 'CRM_Case_Form_CaseView' || $formName == 'CRM_Case_Form_EditClient') {
    //deny access to the expert application case when the logged in user is the client of the case
     CRM_Expertapplication_DenyAccessExpertApplication::buildForm($formName, $form);
+  }
+
+  if ($formName == 'CRM_Case_Form_CaseView'){
+    $caseType = $form->getVar('_caseType');
+    if ($caseType == 'Expertapplication') {
+      CRM_Core_Resources::singleton()->addScriptFile('nl.pum.expertapplication', 'js/cv_approval_process.js');
+    }
   }
 }
 
