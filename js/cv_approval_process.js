@@ -54,4 +54,15 @@ cj(document).ready(function(){
 
     cj('#Screening_criteria_by_RCT td:last-child label').css('display', 'inline');
   });
+
+  cj(document).on("focusin","#Interview_Information #Interview_Information", function(){
+    cj('#CIVICRM_QFID_1_2').css('float','left');
+    cj('#CIVICRM_QFID_1_2').css('margin-right','5px');
+    cj("label[for='CIVICRM_QFID_1_2']").css('float', 'left');
+    cj("label[for='CIVICRM_QFID_1_2']").css('margin-right','5px');
+    cj('#CIVICRM_QFID_0_4').css('float','left');
+    cj('#CIVICRM_QFID_0_4').css('margin-right','5px');
+    cj("label[for='CIVICRM_QFID_0_4']").css('float', 'left');
+    cj("label[for='CIVICRM_QFID_0_4']").css('margin-right','5px');
+  });
 });
