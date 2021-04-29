@@ -31,6 +31,31 @@ function expertapplication_civicrm_buildForm($formName, &$form) {
   }
 }
 
+function expertapplication_civicrm_validateForm( $formName, &$fields, &$files, &$form, &$errors ) {
+  /* When changing expert status to 'Active', start date should be filled */
+  if($formName == 'CRM_Contact_Form_CustomData'){
+    $cf_expert_status = civicrm_api('CustomField', 'getsingle', array('version' => 3, 'sequential' => 1, 'name' => 'expert_status', 'custom_group_name' => 'expert_data'));
+
+    if(!empty($form->_groupID) && $form->_groupID == $cf_expert_status['custom_group_id']){
+      $cg_expertdata = civicrm_api('CustomGroup', 'getsingle', array('version' => 3, 'sequential' => 1, 'name' => 'expert_data'));
+
+      if(is_int((int)$form->_entityId)){
+        $q_expertdata_id = CRM_Core_DAO::singleValueQuery("SELECT id FROM ".$cg_expertdata['table_name']." WHERE entity_id = %1", array(1=> array((int)$form->_entityId, 'Integer')));
+      }
+
+      if(is_int((int)$q_expertdata_id)){
+        if(!empty($form->_submitValues['custom_'.$cf_expert_status['id'].'_'.$q_expertdata_id]) && $form->_submitValues['custom_'.$cf_expert_status['id'].'_'.$q_expertdata_id] == 'Active'){
+          $cf_expert_startdate = civicrm_api('CustomField', 'getsingle', array('version' => 3, 'sequential' => 1, 'name' => 'expert_status_start_date', 'custom_group_name' => 'expert_data'));
+
+          if(empty($form->_submitValues['custom_'.$cf_expert_startdate['id'].'_'.$q_expertdata_id])){
+            $errors['custom_'.$cf_expert_startdate['id'].'_'.$q_expertdata_id] = ts("Start date expert status cannot be empty when status is 'Active'");
+          }
+        }
+      }
+    }
+  }
+}
+
 /**
  * Implementation of hook_civicrm_config
  *
